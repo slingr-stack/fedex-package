@@ -8,9 +8,9 @@
     </thead>
     <tbody>
     <tr>
-        <td>FedEx package</td>
-        <td>January 3, 2024</td>
-        <td>Detailed description of the API of the FedEx package.</td>
+        <td>FedEx Package</td>
+        <td>February 9, 2024</td>
+        <td>The FedEx Package provides developers with a comprehensive set of tools and resources to integrate FedEx shipping and tracking functionalities into their applications. It allows users to automate shipping processes, calculate shipping rates, generate shipping labels, track shipments in real-time, and access other shipping-related services offered by FedEx. With easy-to-use endpoints and robust documentation, the FedEx Package empowers developers to streamline logistics operations and enhance customer experiences.</td>
     </tr>
     </tbody>
 </table>
@@ -25,14 +25,23 @@ The Javascript API of the fedex package has two pieces:
 - **Flow steps**
 
 ## HTTP requests
-You can make `GET`,`PUT`,`PATCH`,`DELETE` requests to the [fedex API](API_URL_HERE) like this:
+You can make `GET`,`PUT`,`PATCH`,`DELETE` requests to the [fedex API](https://developer.fedex.com/api/es-us/home.html) like this:
 ```javascript
-var response = pkg.fedex.api.get('/path3')
-var response = pkg.fedex.api.put('/path1/:testPath', body)
-var response = pkg.fedex.api.put('/path1/:testPath')
-var response = pkg.fedex.api.patch('/path2?param2=' + httpOptions.query.param2 + '&param3=' + httpOptions.query.param3 + '', body)
-var response = pkg.fedex.api.patch('/path2?param2=' + httpOptions.query.param2 + '&param3=' + httpOptions.query.param3 + '')
-var response = pkg.fedex.api.delete('/path4')
+var response = pkg.fedex.api.post('/address/v1/addresses/resolve',{body:{
+        "addressesToValidate": [
+            {
+                "address": {
+                    "streetLines": [
+                        "Riobamba 5680"
+                    ],
+                    "city": "Rosario",
+                    "stateOrProvinceCode": "SF",
+                    "countryCode": "AR"
+                }
+            }
+        ]
+    }})
+var response = pkg.fedex.api.put('/ship/v1/openshipments/', body)
 ```
 
 Please take a look at the documentation of the [HTTP service](https://github.com/slingr-stack/http-service)
@@ -205,7 +214,6 @@ For more information about how shortcuts or flow steps work, and how they are ge
 
 ## Dependencies
 * HTTP Service (v1.3.7)
-* Oauth Package (v1.0.19) // TODO review and remove if its needed
 
 ## About SLINGR
 
